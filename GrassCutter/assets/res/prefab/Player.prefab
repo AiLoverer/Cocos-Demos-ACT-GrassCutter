@@ -230,7 +230,7 @@
     },
     "_materials": [
       {
-        "__uuid__": "620b6bf3-0369-4560-837f-2a2c00b73c26",
+        "__uuid__": "6826b480-6300-444d-95a3-9e27a0c476a3",
         "__expectedType__": "cc.Material"
       }
     ],
@@ -318,7 +318,7 @@
     "__prefab": {
       "__id__": 19
     },
-    "_group": 1,
+    "_group": 2,
     "_type": 1,
     "_mass": 1,
     "_allowSleep": true,
@@ -352,6 +352,7 @@
       "__id__": 0
     },
     "fileId": "30gODCBIhDAaAPkBWQXJrh",
+    "instance": null,
     "targetOverrides": null,
     "nestedPrefabInstanceRoots": [
       {
