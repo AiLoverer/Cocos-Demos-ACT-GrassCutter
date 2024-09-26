@@ -1,8 +1,8 @@
-import { _decorator, Component, Node } from 'cc';
-const { ccclass, property } = _decorator;
-
-@ccclass('StateDefine')
+/**
+ * 角色状态
+ */
 export enum StateDefine {
+
     Idle = "idle",
 
     Attack = "attack",

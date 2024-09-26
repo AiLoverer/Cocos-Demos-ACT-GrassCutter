@@ -3,6 +3,8 @@ import { StateDefine } from './StateDefine';
 import { MathUtil } from '../utils/MathUtil';
 import { Events } from '../events/Events';
 import { ActorProperty } from './ActorProperty';
+import { PhysicsGroup } from './PhysicsGroup';
+import { ProjectTile } from './ProjectTile';
 const { ccclass, property } = _decorator;
 
 let tempVelocity: Vec3 = v3();
@@ -136,7 +138,7 @@ export class Actor extends Component {
             return;
         }
 
-        const projectile = event.otherCollider.getComponent(Projectile);
+        const projectile = event.otherCollider.getComponent(ProjectTile);
         const hostActor = projectile!.host?.getComponent(Actor);
         let hurtDirection = v3()
         Vec3.subtract(hurtDirection, event.otherCollider.node.worldPosition, event.selfCollider.node.worldPosition);
