@@ -1,6 +1,6 @@
 import { Component, math, Node, randomRange, v3, Vec3, _decorator} from 'cc';
 import { Actor } from './Actor';
-import { ProjectileEmitter } from './ProjectTileEmitter';
+import { ProjectTileEmitter } from './ProjectTileEmitter';
 import { ActorManager } from '../level/ActorManager';
 import { Events } from '../events/Events';
 import { StateDefine } from './StateDefine';
@@ -17,7 +17,7 @@ let tempForward = v3();
  */
 @ccclass('PlayerController')
 @requireComponent(Actor)
-@requireComponent(ProjectileEmitter)
+@requireComponent(ProjectTileEmitter)
 export class PlayerController extends Component {
 
     @property(Node)
@@ -26,7 +26,7 @@ export class PlayerController extends Component {
     @property(Node)
     bowstring: Node | null = null;
 
-    projectileEmitter: ProjectileEmitter;
+    projectileEmitter: ProjectTileEmitter;
 
     shootDirection: Vec3 = v3();
 
@@ -37,7 +37,7 @@ export class PlayerController extends Component {
     start() {
         this.actor = this.node.getComponent(Actor);
         ActorManager.instance.playerActor = this.actor;
-        this.projectileEmitter = this.node.getComponent(ProjectileEmitter);
+        this.projectileEmitter = this.node.getComponent(ProjectTileEmitter);
         this.node.on("onFrameAttackLoose", this.onFrameAttackLoose, this);
         this.node.on(Events.onEnemyKilled, this.onKilled, this);
         this.projectileCount = 2;

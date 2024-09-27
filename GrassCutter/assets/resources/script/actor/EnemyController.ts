@@ -1,6 +1,6 @@
 import { ccenum, CCFloat, CCInteger, Collider, Component, game, macro, math, Node, v3, Vec3, _decorator } from 'cc';
 import { Actor } from './Actor';
-import { ProjectileEmitter } from './ProjectTileEmitter';
+import { ProjectTileEmitter } from './ProjectTileEmitter';
 import { ActorManager } from '../level/ActorManager';
 import { StateDefine } from './StateDefine';
 const { ccclass, property, requireComponent } = _decorator;
@@ -38,7 +38,7 @@ export class EnemyController extends Component {
 
     aiType: AIType = AIType.Chase;
 
-    projectileEmitter: ProjectileEmitter;
+    projectileEmitter: ProjectTileEmitter;
 
     @property(Node)
     projectileStart: Node | null = null;
@@ -51,7 +51,7 @@ export class EnemyController extends Component {
     start() {
         this.actor = this.node.getComponent(Actor);
         if (this.career == EnemyCareer.Range) {
-            this.projectileEmitter = this.node.getComponent(ProjectileEmitter);
+            this.projectileEmitter = this.node.getComponent(ProjectTileEmitter);
         }
 
         this.schedule(this.executeAI, 1.0, macro.REPEAT_FOREVER, 1.0)

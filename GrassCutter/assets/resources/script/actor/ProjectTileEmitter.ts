@@ -6,8 +6,8 @@ const { ccclass, property } = _decorator;
 /**
  * 投射物发射器
  */
-@ccclass('ProjectileEmitter')
-export class ProjectileEmitter extends Component {
+@ccclass('ProjectTileEmitter')
+export class ProjectTileEmitter extends Component {
 
     /**
      * 投射物预制体

@@ -1,5 +1,7 @@
 import { _decorator, Node, Prefab, Vec3, Pool, instantiate, director, ParticleSystem, resources } from 'cc';
 import { Pools } from '../utils/Pools';
+import { DynamicResourceDefine } from '../resource/ResourceDefine';
+const { ccclass, property } = _decorator;
 /**
  * 特效管理器
  */
