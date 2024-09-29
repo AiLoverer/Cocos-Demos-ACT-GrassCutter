@@ -1,93 +1,94 @@
-import { _decorator, Component, Node , CCFloat, input, Input, EventTouch, Vec3, math,UITransform} from 'cc';
+import { _decorator, Component, CCFloat, EventTouch, Input, math, Sprite, v3, Vec3 } from 'cc';
 import { VirtualInput } from './input/VirtualInput';
 const { ccclass, property } = _decorator;
 
+/**
+ * 摇杆控制器
+ */
 @ccclass('UIJoyStick')
 export class UIJoyStick extends Component {
-    @property(Node)
-    stickBg: Node | null = null;
 
-    @property(Node)
-    thumbnail: Node | null = null;
+    /**
+     * 手指部分
+     */
+    @property(Sprite)
+    thumbnail: Sprite | null = null;
 
-    @property({type:CCFloat})
+    /**
+     * 摇杆的背景
+     */
+    @property(Sprite)
+    joyStickBg: Sprite | null = null;
+
+    /**
+     * 摇杆的半径
+     */
+    @property(CCFloat)
     radius: number = 130;
 
-    private _parentHeight: number = 0;
     /**
      * 摇杆初始化的位置
      */
-    initJoyStickBgPosition: Vec3 = new Vec3();
+    initJoyStickBgPosition: Vec3 = v3()
 
     start() {
-        input.on(Input.EventType.TOUCH_START, this.onTouchStart, this);
-        input.on(Input.EventType.TOUCH_MOVE, this.onTouchMove, this);
-        input.on(Input.EventType.TOUCH_END, this.onTouchEnd, this);
-        input.on(Input.EventType.TOUCH_CANCEL, this.onTouchEnd, this);
-
-        this.initJoyStickBgPosition = this.stickBg.worldPosition.clone();
-
-        // 获取父节点的高度
-        if (this.stickBg && this.stickBg.parent) {
-            const parentUITransform = this.stickBg.parent.getComponent(UITransform);
-            if (parentUITransform) {
-                this._parentHeight = parentUITransform.height;
-                console.log(`parentHeight: ${this._parentHeight}`);
-            } else {
-                console.error('父节点没有 UITransform 组件');
-            }
-        } else {
-            console.error('stickBg 或其父节点不存在');
-        }
+        this.node.on(Input.EventType.TOUCH_MOVE, this.onTouchMove, this);
+        this.node.on(Input.EventType.TOUCH_END, this.onTouchEnd, this);
+        this.node.on(Input.EventType.TOUCH_CANCEL, this.onTouchEnd, this);
+        this.node.on(Input.EventType.TOUCH_START, this.onTouchStart, this);
+        this.initJoyStickBgPosition = this.joyStickBg.node.worldPosition.clone();
     }
 
-    protected onDestroy(): void {
-        input.off(Input.EventType.TOUCH_START, this.onTouchStart, this);
-        input.off(Input.EventType.TOUCH_MOVE, this.onTouchMove, this);
-        input.off(Input.EventType.TOUCH_END, this.onTouchEnd, this);
-        input.off(Input.EventType.TOUCH_CANCEL, this.onTouchEnd, this);
+    onDestroy() {
+        this.node.off(Input.EventType.TOUCH_MOVE, this.onTouchMove, this);
+        this.node.off(Input.EventType.TOUCH_END, this.onTouchEnd, this);
+        this.node.off(Input.EventType.TOUCH_CANCEL, this.onTouchEnd, this);
+        this.node.off(Input.EventType.TOUCH_START, this.onTouchStart, this);
     }
 
-    update(deltaTime: number) {
-        
+    onTouchStart(eventTouch: EventTouch) {
+        let x = eventTouch.touch.getUILocationX();
+        let y = eventTouch.touch.getUILocationY();
+        this.joyStickBg.node.setWorldPosition(x, y, 0);
     }
 
-    onTouchStart(eventTouch : EventTouch) {
-        const touchLocation = eventTouch.getUILocation();
-        if (this._parentHeight > 0 && touchLocation.y > this._parentHeight ) {
-            console.log('触摸位置超出父节点高度');
-            return;
-        }
+    /**
+     * 触摸移动
+     * @param touchEvent 
+     */
+    onTouchMove(touchEvent: EventTouch) {
+        // 获取摇杆在 UI 的位置
+        let x = touchEvent.touch.getUILocationX();
+        let y = touchEvent.touch.getUILocationY();
 
-        console.log(`x : ${touchLocation.x}`);
-        this.stickBg.setWorldPosition(touchLocation.x, touchLocation.y, 0);
-    }
-
-    onTouchMove(eventTouch : EventTouch) {
-        let touchLocation = eventTouch.getUILocation();
-
-        let worldPosition = new Vec3(touchLocation.x, touchLocation.y, 0);
-        let localPosition = new Vec3(0, 0, 0);
+        let worldPosition = new Vec3(x, y, 0);
+        let localPosition = v3();
 
         // 转化摇杆的位置到背景图的本地坐标
-        this.stickBg.inverseTransformPoint(localPosition, worldPosition);
-        let thumbnailPosition = new Vec3();
-        let length = localPosition.length();
+        this.joyStickBg.node.inverseTransformPoint(localPosition, worldPosition);
+        let thumbnailPosition = v3();
+        let len = localPosition.length();
         localPosition.normalize();
-        Vec3.scaleAndAdd(thumbnailPosition, new Vec3(), localPosition, math.clamp(length, 0, this.radius));
-        
-        this.thumbnail.setPosition(thumbnailPosition);
+        Vec3.scaleAndAdd(thumbnailPosition, v3(), localPosition, math.clamp(len, 0, this.radius));
 
-        VirtualInput.setHorizontal(thumbnailPosition.x / this.radius);
-        VirtualInput.setVertical(thumbnailPosition.y / this.radius);
+        this.thumbnail.node.setPosition(thumbnailPosition);
+
+        // 将计算的结果赋予给 Input
+        VirtualInput.horizontal = this.thumbnail.node.position.x / this.radius;
+        VirtualInput.vertical = this.thumbnail.node.position.y / this.radius;
     }
 
-    onTouchEnd() {
-        this.thumbnail.setPosition(Vec3.ZERO);
-        this.stickBg.worldPosition = this.initJoyStickBgPosition;
-        VirtualInput.setHorizontal(0);
-        VirtualInput.setVertical(0);
+    /**
+     * 触摸结束
+     * @param touchEvent 
+     */
+    onTouchEnd(touchEvent: EventTouch) {
+        this.thumbnail.node.setPosition(v3());
+        VirtualInput.horizontal = 0;
+        VirtualInput.vertical = 0;
+
+        // 摇杆的位置回归到初始化位置
+        this.joyStickBg.node.worldPosition = this.initJoyStickBgPosition;
     }
 }
-
 

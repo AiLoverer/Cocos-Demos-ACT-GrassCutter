@@ -1,16 +1,20 @@
-import { _decorator, CCFloat, Collider, Component, ICollisionEvent, math, Node, ParticleSystem, v3, Vec3 } from 'cc';
+import { CCFloat, Collider, Component, ICollisionEvent, math, Node, ParticleSystem, v3, Vec3, _decorator } from 'cc';
+import { AudioManager } from '../audio/AudioManager';
+import { EffectManager } from '../effect/EffectManager';
 import { Events } from '../events/Events';
+import { DynamicResourceDefine } from '../resource/ResourceDefine';
 import { MathUtil } from '../utils/MathUtil';
 import { ProjectTileProperty } from './ProjectTileProperty';
-import { EffectManager } from '../effect/EffectManager';
-import { AudioManager } from '../audio/AudioManager';
-import { DynamicResourceDefine } from '../resource/ResourceDefine';
 const { ccclass, property } = _decorator;
 
 let temp = v3();
 
+/**
+ * 投射物
+ */
 @ccclass('ProjectTile')
 export class ProjectTile extends Component {
+
     @property(Collider)
     private collider: Collider | null = null;
 
@@ -85,5 +89,4 @@ export class ProjectTile extends Component {
         AudioManager.instance.playSfx(DynamicResourceDefine.audio.SfxHit);
     }
 }
-
 

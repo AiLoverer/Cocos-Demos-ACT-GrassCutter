@@ -1,26 +1,28 @@
-import { _decorator, Collider, Component, Node, RigidBody, SkeletalAnimation , Animation, SkeletalAnimationState, Vec3, CCFloat, v3, math, ICollisionEvent} from 'cc';
-import { StateDefine } from './StateDefine';
-import { MathUtil } from '../utils/MathUtil';
+import { _decorator, SkeletalAnimation, Animation, SkeletalAnimationState, Collider, Vec3, Component, RigidBody, math, v3, CCFloat, ICollisionEvent } from 'cc';
 import { Events } from '../events/Events';
 import { ActorProperty } from './ActorProperty';
 import { PhysicsGroup } from './PhysicsGroup';
+import { StateDefine } from './StateDefine';
+import { MathUtil } from '../utils/MathUtil';
 import { ProjectTile } from './ProjectTile';
-const { ccclass, property } = _decorator;
+const { ccclass, property, requireComponent } = _decorator;
 
 let tempVelocity: Vec3 = v3();
 
+/**
+ * 角色和怪物的移动、状态管理器
+ */
 @ccclass('Actor')
 export class Actor extends Component {
 
     @property(SkeletalAnimation)
     skeletalAnimation: SkeletalAnimation | null = null;
-    
-    currState: string = StateDefine.Idle;
+
+    currState: StateDefine | string = StateDefine.Idle;    
+
     collider: Collider | null = null;
 
     destForward: Vec3 = v3()
-
-    rigidbody: RigidBody | null = null;
 
     @property(CCFloat)
     linearSpeed: number = 1.0;
@@ -28,12 +30,14 @@ export class Actor extends Component {
     @property(CCFloat)
     angularSpeed: number = 90;
 
-    actorProperty : ActorProperty = new ActorProperty();
-    
+    rigidbody: RigidBody | null = null;
+
     get dead(): boolean {
         return this.currState == StateDefine.Die;
     }
-    
+
+    actorProperty : ActorProperty = new ActorProperty();
+
     start() {
         this.rigidbody = this.node.getComponent(RigidBody);
         this.collider = this.node.getComponent(Collider);
@@ -41,34 +45,11 @@ export class Actor extends Component {
         this.collider?.on("onTriggerEnter", this.onTriggerEnter, this);
     }
 
-    changeState(state: StateDefine | string) {
-
-        if (state == this.currState && state != StateDefine.Hit) {
-            return;
-        }
-
-        if (this.currState == StateDefine.Die) {
-            return;
-        }
-
-        if (this.currState == StateDefine.Run) {
-            this.stopMove()
-        }
-
-        this.skeletalAnimation?.crossFade(state as string, 0.1);
-        this.currState = state;
+    onDestroy() {
+        this.skeletalAnimation?.off(Animation.EventType.FINISHED, this.onAnimationFinished, this);
+        this.collider?.off("onTriggerEnter", this.onTriggerEnter, this);
     }
 
-    onAnimationFinished(eventType: Animation.EventType, state: SkeletalAnimationState) {
-        if (state.name == StateDefine.Attack) {
-            this.changeState(StateDefine.Idle);
-        }
-
-        if (state.name == StateDefine.Hit) {
-            this.changeState(StateDefine.Idle);
-        }
-    }
-    
     update(deltaTime: number) {
         if (this.currState == StateDefine.Die) {
             return;
@@ -98,6 +79,34 @@ export class Actor extends Component {
 
     stopMove() {
         this.rigidbody?.setLinearVelocity(Vec3.ZERO);
+    }
+
+    changeState(state: StateDefine | string) {
+
+        if (state == this.currState && state != StateDefine.Hit) {
+            return;
+        }
+
+        if (this.currState == StateDefine.Die) {
+            return;
+        }
+
+        if (this.currState == StateDefine.Run) {
+            this.stopMove()
+        }
+
+        this.skeletalAnimation?.crossFade(state as string, 0.1);
+        this.currState = state;
+    }
+
+    onAnimationFinished(eventType: Animation.EventType, state: SkeletalAnimationState) {
+        if (state.name == StateDefine.Attack) {
+            this.changeState(StateDefine.Idle);
+        }
+
+        if (state.name == StateDefine.Hit) {
+            this.changeState(StateDefine.Idle);
+        }
     }
 
     hurt(dam: number, hurtSource: Actor | null, hurtDirection: Vec3) {

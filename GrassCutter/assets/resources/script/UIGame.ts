@@ -57,17 +57,18 @@ export class UIGame extends Component {
     }
 
     onGamePause(){
-        if(director.isPaused()){
+        if (director.isPaused()) {
             director.resume();
-            return;
+        } else {
+            director.pause();
         }
-        director.pause();
     }
     onExpGain() {
         if(ActorManager.instance.playerActor){
             let actorProperty = ActorManager.instance.playerActor.actorProperty;
             this.expBar!.progress = actorProperty.exp / actorProperty.maxExp;
             this.expLabel!.string = actorProperty.exp.toFixed() + "/" + actorProperty.maxExp.toFixed();
+            console.log('this.expLabel!.string: ' + this.expLabel!.string);
         }
     }
     

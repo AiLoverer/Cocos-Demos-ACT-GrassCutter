@@ -18,7 +18,7 @@ export class UIImageLabel extends Component {
     get string(): string {
         return this._string;
     }
-
+ 
     @property(Prefab)
     numPrefab: Prefab | null = null;
     numPool: Pool<Node> | null = null;
@@ -35,9 +35,6 @@ export class UIImageLabel extends Component {
         })
 
         
-    }
-    start() {
-        this.string = "123";
     }
     onDestroy() {
         this.numPool?.destroy();

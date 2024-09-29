@@ -4,7 +4,7 @@ const { ccclass, property } = _decorator;
 export enum DialogDef {
     UISettings = "UISettings",
     UISkillUpgrade = "UISkillUpgrade",
-    UITest = 'UITest'
+    UISettlement = "UISettlement",
 }
 
 @ccclass('UIManager')

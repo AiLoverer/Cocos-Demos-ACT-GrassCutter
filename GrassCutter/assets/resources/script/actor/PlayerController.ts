@@ -1,13 +1,13 @@
-import { Component, math, Node, randomRange, v3, Vec3, _decorator} from 'cc';
-import { Actor } from './Actor';
-import { ProjectTileEmitter } from './ProjectTileEmitter';
-import { ActorManager } from '../level/ActorManager';
+import { Component, math, Node, randomRange, v3, Vec3, _decorator } from 'cc';
 import { Events } from '../events/Events';
-import { StateDefine } from './StateDefine';
 import { VirtualInput } from '../input/VirtualInput';
-import { AudioManager } from '../audio/AudioManager';
-import { DynamicResourceDefine } from '../resource/ResourceDefine';
 import { MathUtil } from '../utils/MathUtil';
+import { Actor } from './Actor';
+import { StateDefine } from './StateDefine';
+import { ActorManager } from '../level/ActorManager';
+import { DynamicResourceDefine } from '../resource/ResourceDefine';
+import { AudioManager } from '../audio/AudioManager';
+import { ProjectTileEmitter } from './ProjectTileEmitter';
 const { ccclass, property, requireComponent } = _decorator;
 
 let tempForward = v3();
