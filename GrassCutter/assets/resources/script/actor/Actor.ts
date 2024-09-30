@@ -130,6 +130,7 @@ export class Actor extends Component {
         }
         this.changeState(StateDefine.Die);
         this.node.emit(Events.onDead, this.node)
+        console.log("onDead:" + this.node.name);
     }
 
     attack() {
@@ -148,7 +149,9 @@ export class Actor extends Component {
         }
 
         const projectile = event.otherCollider.getComponent(ProjectTile);
+        //console.log("projectile name :" + projectile.name);
         const hostActor = projectile!.host?.getComponent(Actor);
+        //console.log("hostActor name :"+ hostActor.name);
         let hurtDirection = v3()
         Vec3.subtract(hurtDirection, event.otherCollider.node.worldPosition, event.selfCollider.node.worldPosition);
         hurtDirection.normalize();

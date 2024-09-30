@@ -81,6 +81,7 @@ export class ActorManager {
         let skeletonAnimation = node.getComponent(Actor).skeletalAnimation;
         skeletonAnimation.once(Animation.EventType.FINISHED, (type: Animation.EventType, state: SkeletalAnimationState) => {
             if (state.name == StateDefine.Die) {
+                console.log("onEnemyDead===node.name: "+ node.name);
                 this.enemyPools.free(node.name, node);
                 let index = this.enemies.indexOf(node);
                 this.enemies.splice(index, 1);
