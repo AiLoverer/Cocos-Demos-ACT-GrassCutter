@@ -1,8 +1,8 @@
 import { ccenum, CCFloat, CCInteger, Collider, Component, game, macro, math, Node, v3, Vec3, _decorator } from 'cc';
-import { Actor } from './Actor';
-import { ProjectTileEmitter } from './ProjectTileEmitter';
 import { ActorManager } from '../level/ActorManager';
+import { Actor } from './Actor';
 import { StateDefine } from './StateDefine';
+import { ProjectTileEmitter } from './ProjectTileEmitter';
 const { ccclass, property, requireComponent } = _decorator;
 
 let temp = v3();
@@ -29,7 +29,7 @@ export class EnemyController extends Component {
     actor: Actor | null = null;
 
     @property(CCFloat)
-    attackRange: number = 0.5;
+    attackRange: number = 1.0;
 
     @property({ type: EnemyCareer })
     career: EnemyCareer = EnemyCareer.Melee;
@@ -88,7 +88,9 @@ export class EnemyController extends Component {
 
         // 判断是否在攻击范围内
         const distance = Vec3.distance(this.node.worldPosition, this.target.node.worldPosition);
-
+        console.log("------");
+        console.log("distance: " + distance);
+        console.log("------");
         if (distance > this.attackRange) {
             this.aiType = AIType.Chase;
             this.actor.changeState(StateDefine.Run);
@@ -146,5 +148,4 @@ export class EnemyController extends Component {
         }
     }
 }
-
 

@@ -12,9 +12,6 @@ const { ccclass, property, requireComponent } = _decorator;
 
 let tempForward = v3();
 
-/**
- * 玩家控制器
- */
 @ccclass('PlayerController')
 @requireComponent(Actor)
 @requireComponent(ProjectTileEmitter)
@@ -179,9 +176,11 @@ export class PlayerController extends Component {
             }
 
             const distance = Vec3.distance(this.node.worldPosition, enemy.worldPosition);
+            
             if (distance < nearDistance) {
+                //console.log("Enemy distance : " + distance + " nearDistance: "+ nearDistance + " nearastEnemy.name" + enemy.name);
                 nearDistance = distance;
-                nearastEnemy = enemy;
+                nearastEnemy = enemy; 
             }
         }
 

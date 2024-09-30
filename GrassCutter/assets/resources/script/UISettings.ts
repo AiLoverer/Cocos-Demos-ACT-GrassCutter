@@ -31,9 +31,9 @@ export class UISettings extends Component {
         this.progressbarEffectVolume = this.sliderEffectVolume.node.getChildByName('ProgressBar').getComponent(ProgressBar);
 
         this.sliderBgmVolume.progress = Settings.instance.bgmVolume;
-        this.sliderEffectVolume.progress = Settings.instance.effectVolume;
+        this.sliderEffectVolume.progress = Settings.instance.sfxVolume;
         this.progressbarBgmVolume.progress = Settings.instance.bgmVolume;
-        this.progressbarEffectVolume.progress = Settings.instance.effectVolume;
+        this.progressbarEffectVolume.progress = Settings.instance.sfxVolume;
 
         this.btnClose = this.node.getChildByName('BtnClose').getComponent(Button);
         if(this.btnClose) {
@@ -55,7 +55,7 @@ export class UISettings extends Component {
     }
 
     onEffectVolumeChange(value:Slider) {
-        Settings.instance.effectVolume = math.clamp01(value.progress);
+        Settings.instance.sfxVolume = math.clamp01(value.progress);
         this.progressbarEffectVolume.progress = value.progress;
     }
 

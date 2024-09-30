@@ -2,13 +2,16 @@ import { _decorator, Component, error, Node, Prefab, resources , find, instantia
 const { ccclass, property } = _decorator;
 
 export enum DialogDef {
-    UISettings = "UISettings",
+    UISetting = "UISetting",
     UISkillUpgrade = "UISkillUpgrade",
     UISettlement = "UISettlement",
 }
 
-@ccclass('UIManager')
-export class UIManager  {
+/***
+ *  UI 管理器
+ */
+@ccclass("UIManager")
+export class UIManager {
 
     private static _instance: UIManager;
     static get instance(): UIManager {
@@ -50,18 +53,12 @@ export class UIManager  {
         }
 
         resources.load("prefab/" + prefabName, Prefab, (err, data: Prefab) => {
-            if (err) {
-                console.error(`加载预制体 ${prefabName} 失败:`, err);
-                return;
-            }
-    
             let node = instantiate(data);
             this.uiRoot.addChild(node)
             this.panels.set(prefabName, node);
             if (bringToTop) {
                 node.setSiblingIndex(this.uiRoot.children.length - 1)
             }
-            console.log(`成功打开面板: ${prefabName}`);
         })
     }
 

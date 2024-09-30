@@ -1036,7 +1036,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 79.98733942687747,
+      "width": 80,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -1075,7 +1075,7 @@
     "_string": "音乐",
     "_horizontalAlign": 1,
     "_verticalAlign": 1,
-    "_actualFontSize": 47.4375,
+    "_actualFontSize": 40,
     "_fontSize": 40,
     "_fontFamily": "Arial",
     "_lineHeight": 40,
@@ -1866,7 +1866,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 79.98733942687747,
+      "width": 80,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -1905,7 +1905,7 @@
     "_string": "音效",
     "_horizontalAlign": 1,
     "_verticalAlign": 1,
-    "_actualFontSize": 47.4375,
+    "_actualFontSize": 40,
     "_fontSize": 40,
     "_fontFamily": "Arial",
     "_lineHeight": 40,

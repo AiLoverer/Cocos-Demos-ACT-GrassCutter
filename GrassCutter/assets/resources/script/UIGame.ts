@@ -13,22 +13,23 @@ export class UIGame extends Component {
 
     @property(ProgressBar)
     expBar: ProgressBar | null = null;
-    
+
     @property(UIImageLabel)
-    expLabel: UIImageLabel  | null = null;
+    expLabel: UIImageLabel | null = null;
 
     @property(ProgressBar)
     hpBar: ProgressBar | null = null;
 
-    isPause: boolean = false;
+    isPaused: boolean = false;
 
     labelPause: Label | null = null;
 
     btnSetting: Button | null = null;
+
     start() {
         let player = ActorManager.instance.playerActor;
         player.node.on(Events.onExpGain, this.onExpGain, this);
-        player.node.on(Events.onPlayerUpgrade, this.onPlayerUpgrade, this);
+        player.node.on(Events.onPlayerUpgrade, this.onUpgrade, this);
         player.node.on(Events.onHurt, this.onHurt, this);
 
         this.onExpGain();
@@ -37,48 +38,41 @@ export class UIGame extends Component {
     onDestroy() {
         let player = ActorManager.instance.playerActor;
         player.node.off(Events.onExpGain, this.onExpGain, this);
-        player.node.off(Events.onPlayerUpgrade, this.onPlayerUpgrade, this);
+        player.node.off(Events.onPlayerUpgrade, this.onUpgrade, this);
         player.node.off(Events.onHurt, this.onHurt, this);
     }
 
-
-    update(deltaTime: number) {
-        
+    onExitGame() {
+        //resources.releaseUnusedAssets()
+        director.loadScene("startup")
     }
 
-    onGameExit() {
-        console.log("onGameExit ...");
-        director.loadScene("startup");
-    }
-
-    onGameSetting(){
-        console.log("onGameSetting ...");
-        UIManager.instance.showDialog(DialogDef.UISettings);
-    }
-
-    onGamePause(){
+    onPauseGame() {
         if (director.isPaused()) {
             director.resume();
         } else {
             director.pause();
         }
     }
-    onExpGain() {
-        if(ActorManager.instance.playerActor){
-            let actorProperty = ActorManager.instance.playerActor.actorProperty;
-            this.expBar!.progress = actorProperty.exp / actorProperty.maxExp;
-            this.expLabel!.string = actorProperty.exp.toFixed() + "/" + actorProperty.maxExp.toFixed();
-            console.log('this.expLabel!.string: ' + this.expLabel!.string);
-        }
+
+    onOpenSetting() {
+        UIManager.instance.showDialog(DialogDef.UISetting);
     }
-    
-    onPlayerUpgrade() {
+
+    onUpgrade() {
         UIManager.instance.showDialog(DialogDef.UISkillUpgrade);
     }
 
+    onExpGain() {
+        if (ActorManager.instance.playerActor) {
+            let actorProperty = ActorManager.instance.playerActor.actorProperty;
+            this.expBar!.progress = actorProperty.exp / actorProperty.maxExp;
+            this.expLabel!.string = actorProperty.exp.toFixed() + "/" + actorProperty.maxExp.toFixed();
+        }
+    }
+
     onHurt(actorProperty: ActorProperty) {
-        this.hpBar!.progress = actorProperty.hpPercent;
+        this.hpBar.progress = actorProperty.hpPercent;
     }
 }
-
 

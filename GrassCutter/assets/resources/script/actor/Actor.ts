@@ -155,6 +155,7 @@ export class Actor extends Component {
         this.hurt(hostActor.actorProperty.attack, hostActor!, hurtDirection);
     }
 
+
 }
 
 

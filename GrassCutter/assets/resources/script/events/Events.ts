@@ -1,8 +1,12 @@
 import { _decorator, Component, Node } from 'cc';
 const { ccclass, property } = _decorator;
 
+/**
+ * 全局事件定义
+ */
 @ccclass('Events')
-export class Events{
+export class Events {
+
     /**
      * Actor 死亡事件
      */
@@ -38,10 +42,6 @@ export class Events{
      */
     static onBgmVolumeChanged: string = "onBgmVolumeChanged";
 
-    /**
-     * 设置面板的音效音量变化
-     */
-    static onEffectVolumeChanged: string = "onEffectVolumeChanged";
 }
 
 

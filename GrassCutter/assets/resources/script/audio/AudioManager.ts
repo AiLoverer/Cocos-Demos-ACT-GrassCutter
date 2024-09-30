@@ -72,7 +72,7 @@ export class AudioManager extends Component {
         let node = this.sfx.get(path).node;
         node.active = true;
         let as = node.getComponent(AudioSource);
-        as.volume = Settings.instance.effectVolume;        
+        as.volume = Settings.instance.sfxVolume;        
         as.play();
     }
 

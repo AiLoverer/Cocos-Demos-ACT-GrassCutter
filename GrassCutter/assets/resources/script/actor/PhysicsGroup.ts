@@ -11,9 +11,9 @@ export class PhysicsGroup {
 
     static readonly Enemy = 1 << 2;
 
-    static readonly PlayerProjectile = 1 << 3;
+    static readonly PlayerProjectTile = 1 << 3;
 
-    static readonly EnemyProjectile = 1 << 4;
+    static readonly EnemyProjectTile = 1 << 4;
 
     static isHurtable(srcGroup: number, destGroup: number): boolean {
 
@@ -21,11 +21,11 @@ export class PhysicsGroup {
             return destGroup == this.Player;
         }
 
-        if (srcGroup == this.PlayerProjectile) {
+        if (srcGroup == this.PlayerProjectTile) {
             return destGroup == this.Enemy;
         }
 
-        if (srcGroup == this.EnemyProjectile) {
+        if (srcGroup == this.EnemyProjectTile) {
             return destGroup == this.Player;
         }
 

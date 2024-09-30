@@ -98,10 +98,6 @@
         "g": 44,
         "b": 0,
         "a": 255
-      },
-      "baseColorMap": {
-        "__uuid__": "36487bbd-7df4-45a8-951b-92dd9faa9300@6c48a",
-        "__expectedType__": "cc.TextureBase"
       }
     },
     {

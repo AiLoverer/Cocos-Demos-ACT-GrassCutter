@@ -25,10 +25,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 29
-      },
-      {
-        "__id__": 32
+        "__id__": 31
       },
       {
         "__id__": 34
@@ -41,10 +38,13 @@
       },
       {
         "__id__": 40
+      },
+      {
+        "__id__": 42
       }
     ],
     "_prefab": {
-      "__id__": 42
+      "__id__": 44
     },
     "_lpos": {
       "__type__": "cc.Vec3",
@@ -144,6 +144,12 @@
       },
       {
         "__id__": 28
+      },
+      {
+        "__id__": 29
+      },
+      {
+        "__id__": 30
       }
     ],
     "removedComponents": []
@@ -479,6 +485,29 @@
     }
   },
   {
+    "__type__": "CCPropertyOverrideInfo",
+    "targetInfo": {
+      "__id__": 21
+    },
+    "propertyPath": [
+      "playOnLoad"
+    ],
+    "value": true
+  },
+  {
+    "__type__": "CCPropertyOverrideInfo",
+    "targetInfo": {
+      "__id__": 27
+    },
+    "propertyPath": [
+      "_mesh"
+    ],
+    "value": {
+      "__uuid__": "ba58d459-55e4-4fe6-ae59-70ccbe509443@fd7d6",
+      "__expectedType__": "cc.Mesh"
+    }
+  },
+  {
     "__type__": "cc.MeshRenderer",
     "_name": "Capsule<ModelComponent>",
     "_objFlags": 0,
@@ -488,7 +517,7 @@
     },
     "_enabled": false,
     "__prefab": {
-      "__id__": 30
+      "__id__": 32
     },
     "_materials": [
       {
@@ -498,7 +527,7 @@
     ],
     "_visFlags": 0,
     "bakeSettings": {
-      "__id__": 31
+      "__id__": 33
     },
     "_mesh": {
       "__uuid__": "1263d74c-8167-4928-91a6-4e2672411f47@801ec",
@@ -549,7 +578,7 @@
     },
     "_enabled": true,
     "__prefab": {
-      "__id__": 33
+      "__id__": 35
     },
     "_material": {
       "__uuid__": "ba21476f-2866-4f81-9c4d-6e359316e448",
@@ -581,7 +610,7 @@
     },
     "_enabled": true,
     "__prefab": {
-      "__id__": 35
+      "__id__": 37
     },
     "_group": 2,
     "_type": 1,
@@ -618,7 +647,7 @@
     },
     "_enabled": true,
     "__prefab": {
-      "__id__": 37
+      "__id__": 39
     },
     "skeletalAnimation": null,
     "linearSpeed": 1.5,
@@ -639,7 +668,7 @@
     },
     "_enabled": true,
     "__prefab": {
-      "__id__": 39
+      "__id__": 41
     },
     "bow": {
       "__id__": 9
@@ -663,7 +692,7 @@
     },
     "_enabled": true,
     "__prefab": {
-      "__id__": 41
+      "__id__": 43
     },
     "projectile": {
       "__uuid__": "4c3a7da0-1f93-406c-aeb1-163731bde1b3",
@@ -687,13 +716,13 @@
     "instance": null,
     "targetOverrides": [
       {
-        "__id__": 43
-      },
-      {
         "__id__": 45
       },
       {
         "__id__": 47
+      },
+      {
+        "__id__": 49
       }
     ],
     "nestedPrefabInstanceRoots": [
@@ -705,33 +734,11 @@
   {
     "__type__": "cc.TargetOverrideInfo",
     "source": {
-      "__id__": 36
-    },
-    "sourceInfo": null,
-    "propertyPath": [
-      "skeletalAnimation"
-    ],
-    "target": {
-      "__id__": 2
-    },
-    "targetInfo": {
-      "__id__": 44
-    }
-  },
-  {
-    "__type__": "cc.TargetInfo",
-    "localID": [
-      "79WGHrqChZO7MhLcJbyNUU"
-    ]
-  },
-  {
-    "__type__": "cc.TargetOverrideInfo",
-    "source": {
       "__id__": 38
     },
     "sourceInfo": null,
     "propertyPath": [
-      "bow"
+      "skeletalAnimation"
     ],
     "target": {
       "__id__": 2
@@ -743,13 +750,35 @@
   {
     "__type__": "cc.TargetInfo",
     "localID": [
+      "79WGHrqChZO7MhLcJbyNUU"
+    ]
+  },
+  {
+    "__type__": "cc.TargetOverrideInfo",
+    "source": {
+      "__id__": 40
+    },
+    "sourceInfo": null,
+    "propertyPath": [
+      "bow"
+    ],
+    "target": {
+      "__id__": 2
+    },
+    "targetInfo": {
+      "__id__": 48
+    }
+  },
+  {
+    "__type__": "cc.TargetInfo",
+    "localID": [
       "58Ga0KzElBo4CD8B9GgeTH"
     ]
   },
   {
     "__type__": "cc.TargetOverrideInfo",
     "source": {
-      "__id__": 38
+      "__id__": 40
     },
     "sourceInfo": null,
     "propertyPath": [
@@ -759,7 +788,7 @@
       "__id__": 2
     },
     "targetInfo": {
-      "__id__": 48
+      "__id__": 50
     }
   },
   {
